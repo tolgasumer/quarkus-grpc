@@ -10,7 +10,7 @@ option objc_class_prefix = "HLW";
 // The person echo service definition.
 service Person {
     // Echo the person back
-    rpc EchoPerson (PersonRequest) returns (PersonReply) {}
+    rpc EchoPerson (PersonRequest) returns (PersonResponse) {}
 }
 
 // The request message containing person info.
@@ -21,7 +21,7 @@ message PersonRequest {
 }
 
 // The response message containing person info.
-message PersonReply {
+message PersonResponse {
     string name = 1;
     string surname = 2;
     int32 age = 3;

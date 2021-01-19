@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import grpc.MutinyPersonGrpc;
 import grpc.PersonRequest;
-import grpc.PersonReply;
+import grpc.PersonResponse;
 import io.smallrye.mutiny.Uni;
 
 @Singleton
@@ -24,15 +24,15 @@ public class PersonService extends MutinyPersonGrpc.PersonImplBase {
     }
 
     @Override
-    public Uni<PersonReply> echoPerson(PersonRequest person) {
+    public Uni<PersonResponse> echoPerson(PersonRequest person) {
         int count = counter.incrementAndGet();
-        PersonReply personReply = PersonReply.newBuilder()
+        PersonResponse personResponse = PersonResponse.newBuilder()
                         .setName(person.getName())
                         .setSurname(person.getSurname())
                         .setAge(person.getAge())
                         .setAdult(isAdult(person.getAge()))
                         .setCount(count)
                         .build();
-        return Uni.createFrom().item(personReply);
+        return Uni.createFrom().item(personResponse);
     }
 }

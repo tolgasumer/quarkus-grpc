@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "grpc";
+option java_outer_classname = "ItemProto";
+option objc_class_prefix = "HLW";
+
+//package itemProto;
+
+// The item echo service definition.
+service Item {
+  // Echo the item back
+  rpc EchoItem (ItemRequest) returns (ItemResponse) {}
+}
+
+// The request message containing item info.
+message ItemRequest {
+  string name = 1;
+  int32 length = 2;
+  int32 width = 3;
+}
+
+// The response message containing item info.
+message ItemResponse {
+  string name = 1;
+  int32 length = 2;
+  int32 width = 3;
+  bool fit = 4;
+  int32 count = 5;
+}

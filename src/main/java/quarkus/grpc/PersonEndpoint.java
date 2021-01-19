@@ -8,7 +8,7 @@ import javax.ws.rs.QueryParam;
 import grpc.PersonGrpc;
 import grpc.MutinyPersonGrpc;
 import grpc.PersonRequest;
-import grpc.PersonReply;
+import grpc.PersonResponse;
 import io.quarkus.grpc.runtime.annotations.GrpcService;
 import io.smallrye.mutiny.Uni;
 
@@ -25,7 +25,7 @@ public class PersonEndpoint {
     @GET
     @Path("/blocking")
     public String personBlocking(@QueryParam("name") String name, @QueryParam("surname") String surname, @QueryParam("age") int age) {
-        PersonReply reply = blockingPersonService.echoPerson((PersonRequest.newBuilder()
+        PersonResponse reply = blockingPersonService.echoPerson((PersonRequest.newBuilder()
                 .setName(name)
                 .setSurname(surname)
                 .setAge(age)
@@ -36,7 +36,7 @@ public class PersonEndpoint {
     @GET
     @Path("/mutiny")
     public Uni<String> personMutiny(@QueryParam("name") String name, @QueryParam("surname") String surname, @QueryParam("age") int age) {
-        Uni<PersonReply> reply = mutinyPersonService.echoPerson(PersonRequest.newBuilder()
+        Uni<PersonResponse> reply = mutinyPersonService.echoPerson(PersonRequest.newBuilder()
                 .setName(name)
                 .setSurname(surname)
                 .setAge(age)
@@ -44,7 +44,7 @@ public class PersonEndpoint {
         return reply.onItem().transform((res) -> generateResponse(res));
     }
 
-    public String generateResponse(PersonReply reply) {
-        return String.format(reply.toString());
+    public String generateResponse(PersonResponse response) {
+        return String.format(response.toString());
     }
 }
